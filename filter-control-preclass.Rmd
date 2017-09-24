@@ -1,5 +1,5 @@
 ---
-  title: "Untitled"
+  title: "Jess Kaminsky - Pre Class 3"
   output: html_document
 ---
   
@@ -71,7 +71,7 @@ for(i in 1:dim(survey)[1]) {
     }
   }
 }
-
+######## ANOTHER WAY ###############
 survey.clean2 <- survey
 for(i in 2:dim(survey.clean2)[2]) {
   survey.clean2[,i] <- ifelse(survey.clean2[,i] %in% 1:5, survey.clean2[,i], NA)
