@@ -1,39 +1,88 @@
 ---
-title: "Untitled"
-output: html_document
+  title: "Untitled"
+  output: html_document
 ---
-
-
-
-
+  
+  
+  
+  
 ### Question 1:
-
+  
 Using a loop, print the integers from 1 to 50. 
+```{r, eval = FALSE}
+for (i in 1:50) print(i)
+
+```
 
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
+```{r}
+sum = 0
+for (i in 0:1000) {
+  sum = sum + i
+}
+```
 
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
+```{r}
+even_sum = 0
+for (i in seq(0,1000, by =2)) {
+  even_sum = even_sum + i
+}
+```
 
 C. Now, repeat A and B WITHOUT using a loop.
+```{r}
+#A
+a_vals <- 0:1000
+sum(a_vals)
+#B
+b_vals <- seq(0,1000, by=2)
+sum(b_vals)
+```
+
 
 ### Question 3:
 
 Here is a dataframe of survey data containing 5 questions :
-
-```{r, eval=FALSE}
+  
+```{r}
 survey <- data.frame(
-                     "participant" = c(1, 2, 3, 4, 5, 6),
-                     "q1" = c(5, 3, 2, 7, 11, 0),
-                     "q2" = c(4, 2, 2, 5, -10, 99),
-                     "q3" = c(-4, -3, 4, 2, 9, 10),
-                     "q4" = c(-30, 5, 2, 23, 4, 2),
-                     "q5" = c(88, 4, -20, 2, 4, 2)
-                     )
+  "participant" = c(1, 2, 3, 4, 5, 6),
+  "q1" = c(5, 3, 2, 7, 11, 0),
+  "q2" = c(4, 2, 2, 5, -10, 99),
+  "q3" = c(-4, -3, 4, 2, 9, 10),
+  "q4" = c(-30, 5, 2, 23, 4, 2),
+  "q5" = c(88, 4, -20, 2, 4, 2)
+)
 ```
 The response to each question should be an integer between 1 and 5. Obviously, we have some bad values in the dataframe. The goal of this problem is to fix them.
 
 A. Using a loop, create a new dataframe called survey.clean where all the invalid values (those that are not integers between 1 and 5) are set to NA.
+```{r}
+survey.clean <- survey
+for(i in 1:dim(survey)[1]) {
+  for(j in 2:dim(survey)[2]){
+    if (!(survey[i,j] %in% 1:5)) {
+      survey.clean[i,j] <- NA
+    } else {
+      survey.clean[i,j] <- survey[i,j]
+    }
+  }
+}
+
+survey.clean2 <- survey
+for(i in 2:dim(survey.clean2)[2]) {
+  survey.clean2[,i] <- ifelse(survey.clean2[,i] %in% 1:5, survey.clean2[,i], NA)
+}
+
+```
 
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
+```{r}
+for(i in 1:dim(survey.clean)[1]) {
+  survey.clean$invalid.answers[i] <- sum(is.na(survey.clean[i,2:6]))
+}
+```
+
