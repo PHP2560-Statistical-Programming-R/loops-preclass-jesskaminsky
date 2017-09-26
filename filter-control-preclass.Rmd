@@ -5,7 +5,6 @@
   
   
   
-  
 ### Question 1:
   
 Using a loop, print the integers from 1 to 50. 
